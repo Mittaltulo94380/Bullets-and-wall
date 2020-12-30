@@ -1,47 +1,90 @@
-var wall,thickness;
-var bullet,speed, weight;
+var bullet , wall , thickness ; 
+var speed , weight  ; 
+
 
 function setup() {
- createCanvas(1600, 400);
- speed=random(223,321)
- weight=random(30,52)
- thickness=random(22,83)
+  createCanvas(1600,400);
 
- bullet=createSprite(50, 200, 50,20); 
- bullet.velocityX = speed;
- bullet.shapeColor=color(255);
+  thickness = random(22 , 83) ;
 
- wall=createSprite(1500,200, thickness, height/2)
- wall.shapeColor=color(80,80,80)
- } 
+  speed = random(133 , 231) ;
+  weight = random(30 , 52) ; 
+
+
+  bullet = createSprite(10, 200, 60, 10);
+  bullet.shapeColor = "blue" 
+
+
+  wall = createSprite(1200 , 200 , thickness , height/2) ;
+  wall.shapeColor = "white" ;
+
+}
+
 function draw() {
-   background(0);
+  background("black");    
 
-   bullet.collide(wall);
+  bullet.velocityX = speed ;
+
 
   if(hasCollided(bullet,wall)){
-     bullet.velocityX=0;
-     var damage=0.5 * weight * speed * speed/(thickness * thickness* thickness)
+   
+     bullet.velocityX = 0 ;
+   
+  var damage = 0.5 * weight * speed * speed/(thickness * thickness * thickness) ;
+  
+  if(damage > 10){
+    wall.shapeColor = "red" ;
 
-     if(damage>10){
-        wall.shapeColor=color(255,0,0);
-     }
-     if(damage<10){
-       wall.shapeColor="green";
-     }
+    fill("white") ;
+    textSize(24) ;
+    text("Your Wall Has Been Tested And Certified As" , 200 , 200) ;
+    text("Re Construct Your Wall To Be" , 280 , 250) ;
 
+    stroke("green") ;
+    fill("green") ;
+    textSize(24) ;
+    text("Safe" , 601 , 250) ;
+
+    stroke("red") ;
+    fill("red") ;
+    textSize(24) ;
+    text("Damaged" , 676 , 201) ;
+    
   }
-      
-     drawSprites();
-        }
+   
+  if(damage < 10){
+    wall.shapeColor = "green" ; 
 
+    fill("white") ;
+    textSize(24) ;
+    text("Your Wall Has Been Tested And Certified As" , 200 , 200) ;
+    
+    
+    stroke("green") ;
+    fill("green") ;
+    textSize(24) ;
+    text("Safe" , 676 , 200) ;
+    }
+ }
+     
+ stroke("yellow") ;
+ fill("yellow") ;
+ textSize(30) ;
+ text("BULLETS AND WALLS" , 600 , 50) ;
+     
+  drawSprites();
+}
 
- function hasCollided(bullet,wall){
-   bulletRightEdge=bullet.x+bullet.width;
-   wallleftEdge=wall.x;
+function hasCollided(lbullet , lwall){
+   
+  var bulletRightEdge = lbullet.x + lbullet.width ;
+  var wallLeftEdge = lwall.x ;
 
-   if(bulletRightEdge>=wallleftEdge){
-      return true;
-   }
-   return false;
- }       
+    if(bulletRightEdge >= wallLeftEdge){
+    {
+      return true
+    }
+ }
+      return false ;
+
+}
